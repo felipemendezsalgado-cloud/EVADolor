@@ -37,8 +37,8 @@ body {
     height: 0;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
-    border-top: 25px solid black;
-    transform: translate(-50%, -25%);
+    border-bottom: 38px solid black;
+    transform: translate(-50%, -75%);
     cursor: pointer;
 }
 
