@@ -12,7 +12,15 @@ slider.addEventListener('mousedown', (e) => {
     isDragging = true;
 });
 
+slider.addEventListener('touchstart', (e) => {
+    isDragging = true;
+});
+
 document.addEventListener('mouseup', (e) => {
+    isDragging = false;
+});
+
+document.addEventListener('touchend', (e) => {
     isDragging = false;
 });
 
@@ -34,9 +42,24 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
+document.addEventListener('touchmove', (e) => {
+    if (isDragging) {
+        e.preventDefault();
+        const rect = bar.getBoundingClientRect();
+        let x = e.touches[0].clientX - rect.left;
+        updateSliderPosition(x);
+    }
+});
+
 bar.addEventListener('click', (e) => {
     const rect = bar.getBoundingClientRect();
     let x = e.clientX - rect.left;
+    updateSliderPosition(x);
+});
+
+bar.addEventListener('touchstart', (e) => {
+    const rect = bar.getBoundingClientRect();
+    let x = e.touches[0].clientX - rect.left;
     updateSliderPosition(x);
 });
 
