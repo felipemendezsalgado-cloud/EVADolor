@@ -4,9 +4,52 @@ const result = document.getElementById('result');
 const calculate = document.getElementById('calculate');
 const toggleNumbers = document.getElementById('toggle-numbers');
 const numbers = document.querySelector('.numbers');
+const imgSin = document.getElementById('img-sin');
+const imgLeve = document.getElementById('img-leve');
+const imgModerado = document.getElementById('img-moderado');
+const imgSevero = document.getElementById('img-severo');
+const imgInsoportable = document.getElementById('img-insoportable');
+const painImages = [imgSin, imgLeve, imgModerado, imgSevero, imgInsoportable];
 
 let isDragging = false;
 let currentValue = 0;
+
+function mixColor(c1, c2, t) {
+    const r = Math.round(c1[0] + (c2[0] - c1[0]) * t);
+    const g = Math.round(c1[1] + (c2[1] - c1[1]) * t);
+    const b = Math.round(c1[2] + (c2[2] - c1[2]) * t);
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+function gradientColorAt(percent) {
+    const green = [0, 128, 0];
+    const yellow = [255, 255, 0];
+    const red = [255, 0, 0];
+    if (percent <= 0.5) {
+        const t = percent / 0.5;
+        return mixColor(green, yellow, t);
+    } else {
+        const t = (percent - 0.5) / 0.5;
+        return mixColor(yellow, red, t);
+    }
+}
+
+function rangeIndex(value) {
+    const v = typeof value === 'number' ? value : parseFloat(value);
+    if (v >= 0 && v < 2.0) return 0;
+    if (v >= 2.0 && v < 4.0) return 1;
+    if (v >= 4.0 && v < 6.0) return 2;
+    if (v >= 6.0 && v < 8.0) return 3;
+    return 4;
+}
+
+function updateHighlight(percent, value) {
+    const idx = rangeIndex(value);
+    const color = gradientColorAt(percent);
+    for (let i = 0; i < painImages.length; i++) {
+        painImages[i].style.boxShadow = i === idx ? `0 0 0 4px ${color}` : '0 0 0 0 transparent';
+    }
+}
 
 slider.addEventListener('mousedown', (e) => {
     isDragging = true;
@@ -32,6 +75,7 @@ function updateSliderPosition(x) {
     const percent = x / rect.width;
     currentValue = (percent * 10).toFixed(1);
     slider.style.left = `${percent * 100}%`;
+    updateHighlight(percent, currentValue);
 }
 
 document.addEventListener('mousemove', (e) => {
@@ -70,3 +114,8 @@ calculate.addEventListener('click', () => {
 toggleNumbers.addEventListener('click', () => {
     numbers.style.display = numbers.style.display === 'none' ? 'flex' : 'none';
 });
+(function init() {
+    const rect = bar.getBoundingClientRect();
+    updateSliderPosition(0);
+    result.textContent = `${(0).toFixed(1)} cm`;
+})();
