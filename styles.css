@@ -21,6 +21,7 @@ body {
 .bar-container {
     position: relative;
     height: 20px;
+    transform: translateY(20px);
 }
 
 .bar {
@@ -37,15 +38,16 @@ body {
     height: 0;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
-    border-bottom: 38px solid black;
-    transform: translate(-50%, -75%);
+    border-bottom: 49px solid black;
+    transform: translate(-50%, -100%);
     cursor: pointer;
 }
 
 .numbers {
-    display: flex;
+    display: none;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-bottom: 5px;
+    transform: translateY(-25px);
 }
 
 .result-container {
