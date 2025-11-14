@@ -51,7 +51,7 @@ body {
 }
 
 .result-container {
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 #calculate {
@@ -67,7 +67,7 @@ body {
 }
 
 #toggle-numbers {
-    margin-top: 10px;
+    margin-top: 25px;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
