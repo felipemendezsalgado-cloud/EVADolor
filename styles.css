@@ -34,7 +34,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-    transform: translateY(-5px);
+    transform: translateY(9px);
 }
 
 .bar-container {
@@ -69,7 +69,7 @@ body {
 }
 
 .result-container {
-    margin-top: 63px;
+    margin-top: 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
