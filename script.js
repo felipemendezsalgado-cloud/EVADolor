@@ -16,18 +16,28 @@ document.addEventListener('mouseup', (e) => {
     isDragging = false;
 });
 
+function updateSliderPosition(x) {
+    const rect = bar.getBoundingClientRect();
+    if (x < 0) x = 0;
+    if (x > rect.width) x = rect.width;
+
+    const percent = x / rect.width;
+    currentValue = (percent * 10).toFixed(1);
+    slider.style.left = `${percent * 100}%`;
+}
+
 document.addEventListener('mousemove', (e) => {
     if (isDragging) {
         const rect = bar.getBoundingClientRect();
         let x = e.clientX - rect.left;
-
-        if (x < 0) x = 0;
-        if (x > rect.width) x = rect.width;
-
-        const percent = x / rect.width;
-        currentValue = (percent * 10).toFixed(1);
-        slider.style.left = `${percent * 100}%`;
+        updateSliderPosition(x);
     }
+});
+
+bar.addEventListener('click', (e) => {
+    const rect = bar.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+    updateSliderPosition(x);
 });
 
 calculate.addEventListener('click', () => {
