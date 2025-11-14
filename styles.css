@@ -16,6 +16,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    transform: translateY(-5px);
 }
 
 .bar-container {
@@ -51,7 +52,7 @@ body {
 }
 
 .result-container {
-    margin-top: 50px;
+    margin-top: 63px;
 }
 
 #calculate {
