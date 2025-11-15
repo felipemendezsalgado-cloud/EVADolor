@@ -63,9 +63,16 @@ body {
 
 .numbers {
     display: none;
-    justify-content: space-between;
+    position: relative;
     margin-bottom: 5px;
     transform: translateY(-25px);
+    height: 20px;
+}
+
+.numbers span {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
 }
 
 .result-container {

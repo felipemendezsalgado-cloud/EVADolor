@@ -43,6 +43,27 @@ function rangeIndex(value) {
     return 4;
 }
 
+function updateNumberPositions() {
+    const numberSpans = numbers.querySelectorAll('span');
+    const barWidth = bar.offsetWidth;
+
+    numberSpans.forEach((span) => {
+        const value = parseInt(span.textContent, 10);
+        const percent = value / 10;
+        let position = percent * barWidth;
+
+        span.style.left = `${position}px`;
+
+        if (value === 0) {
+            span.style.transform = 'translateX(0)';
+        } else if (value === 10) {
+            span.style.transform = 'translateX(-100%)';
+        } else {
+            span.style.transform = 'translateX(-50%)';
+        }
+    });
+}
+
 function updateHighlight(percent, value) {
     const idx = rangeIndex(value);
     const color = gradientColorAt(percent);
@@ -112,10 +133,18 @@ calculate.addEventListener('click', () => {
 });
 
 toggleNumbers.addEventListener('click', () => {
-    numbers.style.display = numbers.style.display === 'none' ? 'flex' : 'none';
+    const computedStyle = window.getComputedStyle(numbers);
+    const isHidden = computedStyle.display === 'none';
+    numbers.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden) {
+        updateNumberPositions();
+    }
 });
+
+window.addEventListener('resize', updateNumberPositions);
+
 (function init() {
-    const rect = bar.getBoundingClientRect();
     updateSliderPosition(0);
     result.textContent = `${(0).toFixed(1)} cm`;
+    updateNumberPositions();
 })();
